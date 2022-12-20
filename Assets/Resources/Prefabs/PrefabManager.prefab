@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2003639277311685667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2003639277311685693}
+  - component: {fileID: 2003639277311685692}
+  m_Layer: 0
+  m_Name: PrefabManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2003639277311685693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003639277311685667}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.754799, y: 9.956692, z: -181.30309}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2003639277311685692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003639277311685667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083c0a75907eef141a51baf7e1da851f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FracturedBlueCar: {fileID: 6870434336317341791, guid: 37713e3e0269e934e845006400b067bc,
+    type: 3}
+  FracturedRedCar: {fileID: 1345614532752912179, guid: 4ff32cbf05c971e4a901659f3050ebf0,
+    type: 3}
+  RedCar: {fileID: 1806095273775511870, guid: b6fd8c25ffbfacd4dbc64dcc3cb5ab4f, type: 3}
+  BlueCar: {fileID: 319803544938846528, guid: baa10bbc7a409c740a4d612391b1de19, type: 3}
+  Tree: {fileID: 5585813110430026930, guid: 33c53dbf22a8e9c418ab62f106d55071, type: 3}
+  Road: {fileID: 2236006276440438329, guid: fa6c8dd96bcff2a48a270fd7c62c363c, type: 3}
+  Explosion: {fileID: 3392722150967959280, guid: d59697bd830f3f843a4452d9c03c6312,
+    type: 3}
+  Sound_Engine:
+  - {fileID: 8300000, guid: c20a605e55cb3704799490ecb330f048, type: 3}
+  - {fileID: 8300000, guid: 4ee16c62c9974a7468f9caa097711e98, type: 3}
+  Sound_Start:
+  - {fileID: 8300000, guid: 45c58719c0cd701439b76b2d9ed99ee1, type: 3}
+  - {fileID: 8300000, guid: 9156c39221f772e459e4dc25deb0fb3f, type: 3}
+  - {fileID: 8300000, guid: 479f8b11b2f9abb458fbf33c1de08eb5, type: 3}
+  Sound_Build:
+  - {fileID: 8300000, guid: 7c7e3228e384e3a468d7c0aebd0ad1b5, type: 3}
+  - {fileID: 8300000, guid: 995da5f70994a2e4bb6fa61f48fb7bfb, type: 3}
+  - {fileID: 8300000, guid: 23df8a7535e6be74b92cd16d43dc26ba, type: 3}
+  - {fileID: 8300000, guid: b5f30a7f96465a14ba7dab5e49a774e2, type: 3}
+  - {fileID: 8300000, guid: 6482717991b2db6409d580d09ef98658, type: 3}
+  Sound_Crash:
+  - {fileID: 8300000, guid: cb2d020324b7c2f469815be7cb0a5193, type: 3}
+  - {fileID: 8300000, guid: d9dea16b1bc9b2046a22880e25dffc96, type: 3}
+  - {fileID: 8300000, guid: 527f5fd53f0a313488a07da6f5d33805, type: 3}
+  Sound_Horn:
+  - {fileID: 8300000, guid: 596eaf91186d13d488b528b619757352, type: 3}
+  - {fileID: 8300000, guid: 6815c7a1a2f37dd44841a1f018cf02ef, type: 3}
+  - {fileID: 8300000, guid: 12160584a232f12429fd4d666e088dba, type: 3}
+  Sound_Tire:
+  - {fileID: 8300000, guid: 4be0c997836f4804c9d714ce6c800881, type: 3}
+  - {fileID: 8300000, guid: d64ef06841291c7489ae848a2ac84aa6, type: 3}
