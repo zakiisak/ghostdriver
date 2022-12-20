@@ -15,6 +15,8 @@ namespace Assets.Code.Game
             if (tag == "destroyer" || tag == "ramp")
             {
                 Explode();
+                if(collision.rigidbody != null)
+                    collision.rigidbody.velocity += transform.forward * Speed;
             }
 
             //impulseAdd += collision.impulse;

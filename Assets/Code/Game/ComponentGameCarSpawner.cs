@@ -16,8 +16,10 @@ namespace Assets.Code.Game
             if (CarRoadController.LocalInstance != null)
             {
                 float progressMultiplier = 1.0f + CarRoadController.LocalInstance.transform.position.z / 400.0f;
+                if (progressMultiplier > 5f)
+                    progressMultiplier = 5f;
 
-                int count = (int)(2 + 6.0f * progressMultiplier);
+                int count = (int)(2 + 5.0f * progressMultiplier);
 
                 if (transform.childCount < count)
                 {
@@ -28,7 +30,9 @@ namespace Assets.Code.Game
 
         private float GetProgressMultiplier()
         {
-            float progressMultiplier = 1.0f + CarRoadController.LocalInstance.transform.position.z / 700.0f;
+            float progressMultiplier = 1.0f + CarRoadController.LocalInstance.transform.position.z / 600.0f;
+            if (progressMultiplier > 4.0f)
+                progressMultiplier = 4.0f;
             return progressMultiplier;
         }
 
@@ -46,7 +50,7 @@ namespace Assets.Code.Game
 
         private void DetermineNextCar(bool start)
         {
-            float progressMultiplier = CarRoadController.LocalInstance.transform.position.z / 400.0f;
+            float progressMultiplier = CarRoadController.LocalInstance.transform.position.z / 600.0f;
 
             Vector3 position = GenerateLanePosition(start, start ? 100 : _border);
             position.y = 1.65f;

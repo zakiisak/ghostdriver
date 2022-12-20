@@ -20,6 +20,7 @@ namespace Assets.Code
 
         private const float startMaxZSpeed = 40.0f;
         private float maxZSpeed = startMaxZSpeed;
+        private const float overallMaxZSpeed = 200f;
 
         private float startDelay = 1.0f;
 
@@ -215,8 +216,8 @@ namespace Assets.Code
             float progressMultiplier = transform.position.z / 100.0f;
 
             maxZSpeed = startMaxZSpeed + (int) progressMultiplier * 3.0f;
-            if (maxZSpeed > 200f)
-                maxZSpeed = 200f;
+            if (maxZSpeed > overallMaxZSpeed)
+                maxZSpeed = overallMaxZSpeed;
 
             body.velocity = new Vector3(0, body.velocity.y, zSpeed);
 
