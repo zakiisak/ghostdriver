@@ -6,6 +6,8 @@ namespace Assets.Code.Game
 {
     public class ComponentScoreController : MonoBehaviour
     {
+        public static int Score;
+
         public TMP_Text text;
 
         private int lastProgress = 0;
@@ -15,6 +17,7 @@ namespace Assets.Code.Game
             if(CarRoadController.LocalInstance != null)
             {
                 int progress = (int) Math.Max(CarRoadController.LocalInstance.transform.position.z / 50.0f, 1);
+                Score = progress;
 
                 if(progress != lastProgress)
                 {

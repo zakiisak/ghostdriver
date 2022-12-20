@@ -16,7 +16,7 @@ namespace Assets.Code
         private int laneIndex = maxLaneIndex / 2;
 
         private float zSpeed;
-        private float acceleration = 5.0f;
+        private float acceleration = 10.0f;
 
         private const float startMaxZSpeed = 40.0f;
         private float maxZSpeed = startMaxZSpeed;
@@ -36,7 +36,7 @@ namespace Assets.Code
                 CrashCar();
                 SpawnFracturedCar(transform.position, true);
 
-                Game.Game.OnScore(false);
+                Game.Game.OnScore();
             }
         }
 
@@ -65,7 +65,12 @@ namespace Assets.Code
         {
             LocalInstance = this;
             body = GetComponent<Rigidbody>();
+        }
+
+        public void Start()
+        {
             StartEngine();
+            SoundManager.BeginPlayingEngine();
         }
 
         public void OnDestroy()
@@ -76,6 +81,7 @@ namespace Assets.Code
         }
 
         private Vector2 swipeStartPosition;
+        private Vector2 swipeEndPosition;
 
         private bool swipeBegin;
         private bool mouseUsed;
@@ -84,61 +90,55 @@ namespace Assets.Code
         {
             if (swipeBegin == false)
             {
-                if ((Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began))
+                foreach(Touch touch in Input.touches)
                 {
-                    swipeStartPosition = Input.touches[0].position;
+                    if(touch.phase == TouchPhase.Began)
+                    {
+                        swipeStartPosition = touch.position;
+                        swipeBegin = true;
+                        break;
+                    }
                 }
                 if (Input.GetMouseButtonDown(0))
                 {
                     swipeStartPosition = Input.mousePosition;
                     mouseUsed = true;
+                    swipeBegin = true;
                 }
-                swipeBegin = true;
             }
             else
             {
                 if (Input.touchCount > 0)
                 {
-                    if (Input.touches[0].phase == TouchPhase.Moved)
+                    foreach (Touch touch in Input.touches)
                     {
-                        Vector2 diff = Input.touches[0].position - swipeStartPosition;
-                        if (diff.x < 0)
+                        if (touch.phase == TouchPhase.Moved)
                         {
-                            //moving finger left - going right
-                            GoRight();
+                            swipeEndPosition = touch.position;
+                            ResetSwipe();
+                            break;
                         }
-                        else if (diff.x > 0)
+                        else if (touch.phase == TouchPhase.Ended)
                         {
-                            //moving finger right - going left
-                            GoLeft();
+                            swipeEndPosition = touch.position;
+                            ResetSwipe();
+                            break;
+                        }
+                    }
 
-                        }
-                        ResetSwipe();
-                    }
-                    else if (Input.touches[0].phase == TouchPhase.Canceled)
-                    {
-                        ResetSwipe();
-                    }
+                    
                 }
                 else if (mouseUsed)
                 {
                     Vector2 diff = new Vector2(Input.mousePosition.x, Input.mousePosition.y) - swipeStartPosition;
                     if (diff.magnitude > 8.0f)
                     {
-                        if (diff.x < 0)
-                        {
-                            //moving finger left - going right
-                            GoRight();
-                        }
-                        else if (diff.x > 0)
-                        {
-                            //moving finger right - going left
-                            GoLeft();
-                        }
+                        swipeEndPosition = Input.mousePosition;
                         ResetSwipe();
                     }
                     if (Input.GetMouseButton(0) == false)
                     {
+                        swipeEndPosition = Input.mousePosition;
                         ResetSwipe();
                     }
                 }
@@ -155,7 +155,20 @@ namespace Assets.Code
         {
             swipeBegin = false;
             mouseUsed = false;
-            swipeStartPosition = Vector2.zero;
+
+            Vector2 diff = swipeEndPosition - swipeStartPosition;
+            if (diff.x > 0)
+            {
+                //moving finger left - going right
+                GoRight();
+            }
+            else if (diff.x < 0)
+            {
+                //moving finger right - going left
+                GoLeft();
+
+            }
+
         }
 
         public void Update()
@@ -165,6 +178,7 @@ namespace Assets.Code
                 DetectSwipes();
                 AccelerateAndMove();
                 DampenRotation();
+                UpdateEngine();
             }
             else
             {
@@ -173,6 +187,13 @@ namespace Assets.Code
                 else Started = true;
             }
             UpdateLanePosition();
+        }
+
+        private void UpdateEngine()
+        {
+            float percentage = Mathf.Max(transform.position.z / 2000f, 0.5f);
+
+            SoundManager.UpdateEnginePitch(Mathf.Min(percentage, 1), Mathf.Min(percentage, 4));
         }
 
         private void DampenRotation()
@@ -186,7 +207,7 @@ namespace Assets.Code
 
         private void AccelerateAndMove()
         {
-            zSpeed += acceleration;
+            zSpeed += acceleration * Time.deltaTime;
             if (zSpeed > maxZSpeed)
                 zSpeed = maxZSpeed;
 
@@ -231,7 +252,6 @@ namespace Assets.Code
 
         public void StartEngine()
         {
-            Started = true;
             SoundManager.PlayEngineStart();
         }
 

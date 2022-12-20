@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3078898378923593116}
   - component: {fileID: 3078898378923593107}
   - component: {fileID: 4590710889616844296}
+  - component: {fileID: 1337521928634056739}
   m_Layer: 0
   m_Name: Wall
   m_TagString: destroyer
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3078898378923593106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.14, y: 3.41, z: 26.7}
-  m_LocalScale: {x: 4, y: 5, z: 3}
+  m_LocalScale: {x: 3, y: 5, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -111,3 +112,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zDistanceBehindPlayer: 20
+--- !u!54 &1337521928634056739
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3078898378923593106}
+  serializedVersion: 2
+  m_Mass: 0.2
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

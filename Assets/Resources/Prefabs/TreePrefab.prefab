@@ -176,9 +176,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5102327419890996744}
   - component: {fileID: -5573921276836176010}
+  - component: {fileID: 1638587039133468382}
   m_Layer: 0
   m_Name: TreePrefab
-  m_TagString: destroyer
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -198,7 +199,7 @@ Transform:
   - {fileID: 8268254131180506477}
   - {fileID: 8785995198727694414}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -1.81, z: 0}
 --- !u!114 &-5573921276836176010
 MonoBehaviour:
@@ -213,3 +214,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zDistanceBehindPlayer: 20
+--- !u!65 &1638587039133468382
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5585813110430026930}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.54, y: 15.54, z: 7.42}
+  m_Center: {x: 0, y: 6.6, z: 0}

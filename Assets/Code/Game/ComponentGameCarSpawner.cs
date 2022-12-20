@@ -17,7 +17,7 @@ namespace Assets.Code.Game
             {
                 float progressMultiplier = 1.0f + CarRoadController.LocalInstance.transform.position.z / 400.0f;
 
-                int count = (int)(2 + 4.0f * progressMultiplier);
+                int count = (int)(2 + 6.0f * progressMultiplier);
 
                 if (transform.childCount < count)
                 {
@@ -28,7 +28,7 @@ namespace Assets.Code.Game
 
         private float GetProgressMultiplier()
         {
-            float progressMultiplier = 1.0f + CarRoadController.LocalInstance.transform.position.z / 400.0f;
+            float progressMultiplier = 1.0f + CarRoadController.LocalInstance.transform.position.z / 700.0f;
             return progressMultiplier;
         }
 
@@ -42,25 +42,20 @@ namespace Assets.Code.Game
             else SpawnRamp(false);
         }
 
-        private const float _border = 300.0f;
+        private const float _border = 400.0f;
 
         private void DetermineNextCar(bool start)
         {
             float progressMultiplier = CarRoadController.LocalInstance.transform.position.z / 400.0f;
 
-            Vector3 position = GenerateLanePosition(start);
+            Vector3 position = GenerateLanePosition(start, start ? 100 : _border);
             position.y = 1.65f;
 
             SpawnCar(position, Random.Range(0, 1.0f) >= 0.5f, progressMultiplier);
         }
 
-        private Vector3 GenerateLanePosition(bool start)
+        private Vector3 GenerateLanePosition(bool start, float border)
         {
-            float border;
-            if (start)
-                border = 100f;
-            else border = _border;
-
             int laneIndex = Random.Range(0, CarRoadController.maxLaneIndex + 1);
 
             float x = CarRoadController.leftMostLaneX + laneIndex * CarRoadController.laneGap;
@@ -72,7 +67,7 @@ namespace Assets.Code.Game
         private void SpawnWall(bool start)
         {
             const float y = 2.8f;
-            Vector3 position = GenerateLanePosition(start);
+            Vector3 position = GenerateLanePosition(start, start ? 20f : _border);
             position.y = y;
 
             Instantiate(PrefabManager.Instance.Wall, transform).transform.position = position;
@@ -81,7 +76,7 @@ namespace Assets.Code.Game
         private void SpawnRamp(bool start)
         {
             const float y = 0.0f;
-            Vector3 position = GenerateLanePosition(start);
+            Vector3 position = GenerateLanePosition(start, start ? 20f : _border);
             position.y = y;
 
             Instantiate(PrefabManager.Instance.Ramp, transform).transform.position = position;

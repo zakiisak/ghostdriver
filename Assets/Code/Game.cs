@@ -5,19 +5,29 @@ namespace Assets.Code.Game
 {
     public class Game
     {
-        public static void OnScore(bool win)
+        public static void OnScore()
         {
-            ShowStatus(win);
+            int score = ComponentScoreController.Score;
+
+            if(score > PlayerPrefs.GetInt("MaxScore", 0))
+            {
+                PlayerPrefs.SetInt("MaxScore", score);
+                Leaderboard.ShareScore(score, (b) => { });
+            }
+
+            ShowStatus();
         }
 
-        private static void ShowStatus(bool win)
+        private static void ShowStatus()
         {
+            Leaderboard.ShowLeaderboard();
             ShowLightAgain();
             SoundManager.StopPlayingEngine();
             SoundManager.StopPlayingTire();
             SoundManager.StopPlayingHorns();
             SoundManager.StopPlayingBuild();
             GameObject.Find("Canvas").transform.Find("GameControls").gameObject.SetActive(true);
+
         }
 
         public static bool IsDark()

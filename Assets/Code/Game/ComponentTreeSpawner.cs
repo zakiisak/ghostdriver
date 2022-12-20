@@ -22,8 +22,8 @@ namespace Assets.Code.Game
 
         private void SpawnTree(bool start)
         {
-            const float xGapThreshold = 20.0f;
-            const float xViewWidth = 200.0f;
+            const float xGapThreshold = 12.0f;
+            const float xViewWidth = 100.0f;
             const float maxForwardZ = 500f;
 
             float minZ;

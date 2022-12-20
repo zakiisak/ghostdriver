@@ -12,7 +12,7 @@ namespace Assets.Code
             Rigidbody[] rb = transform.GetComponentsInChildren<Rigidbody>();
             foreach(Rigidbody r in rb)
             {
-                r.AddExplosionForce(force, center, 10.0f);
+                r.AddExplosionForce(force, center, force);
             }
         }
 
