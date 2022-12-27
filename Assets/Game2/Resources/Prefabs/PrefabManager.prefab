@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2003639277311685667
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2003639277311685693}
+  - component: {fileID: -2679245158237311119}
+  m_Layer: 0
+  m_Name: PrefabManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2003639277311685693
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003639277311685667}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.754799, y: 9.956692, z: -181.30309}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2679245158237311119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003639277311685667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ec968ea016daee4d83ff4e19db60f7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FracturedBlueCar: {fileID: 6870434336317341791, guid: 00a62871f332f5548aada75993269f2a,
+    type: 3}
+  FracturedRedCar: {fileID: 1345614532752912179, guid: 8e50951b4446551438c545b8c9832213,
+    type: 3}
+  RedCar: {fileID: 1806095273775511870, guid: 26fbde839ae30954781f90cceee87ad1, type: 3}
+  BlueCar: {fileID: 319803544938846528, guid: 04751d58d846ac34e93e1d78c10ba378, type: 3}
+  Explosion: {fileID: 3392722150967959280, guid: 5620e3212b5a79644855194faa9d9ef0,
+    type: 3}
+  Sound_Engine: []
+  Sound_Start:
+  - {fileID: 8300000, guid: 3a1a346245c488146811d62898ca8d5e, type: 3}
+  Sound_Build: []
+  Sound_Crash: []
+  Sound_Horn: []
+  Sound_Tire: []

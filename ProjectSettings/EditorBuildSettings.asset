@@ -11,6 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: c850ee8c3b14cc8459e7e186857cf567
+  - enabled: 1
+    path: Assets/Game2/Scenes/CrashGame.unity
+    guid: 1c11533ef7ef5734fa95ae21295a33c9
+  - enabled: 1
+    path: Assets/Game2/Scenes/LoadingScreen.unity
+    guid: 97a56605b2ef0ec46929508a2497101c
+  - enabled: 1
+    path: Assets/Game2/Scenes/CrashTitlescreen.unity
+    guid: f73e71bf35e07c74f87d44a0a29d93ff
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 0ad8ca7537266094d83f6257e8f8157b,
       type: 2}
