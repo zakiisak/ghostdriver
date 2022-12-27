@@ -26,7 +26,7 @@ namespace Assets.Code.Game
         {
             Destroy(gameObject);
             Instantiate(PrefabManager.Instance.Explosion, transform.position, Quaternion.identity);
-            Instantiate(PrefabManager.Instance.FracturedBlueCar, transform.position, Quaternion.identity).AddComponent<ComponentDespawnDelay>().Delay = 5.0f;
+            Instantiate(PrefabManager.Instance.FracturedBlueCar, transform.position, Quaternion.identity).AddComponent<ComponentObjectDespawner>();
         }
 
 

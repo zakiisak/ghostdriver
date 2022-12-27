@@ -1170,7 +1170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {x: 0, y: 0, z: 0}
-  force: 10
+  force: 4
 --- !u!1 &1467168896674012791
 GameObject:
   m_ObjectHideFlags: 0

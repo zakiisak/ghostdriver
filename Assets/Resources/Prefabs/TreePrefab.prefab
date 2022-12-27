@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04f17b4940adcc94494800ea99f1f68a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zDistanceBehindPlayer: 20
+  zDistanceBehindPlayer: 27
 --- !u!65 &1638587039133468382
 BoxCollider:
   m_ObjectHideFlags: 0

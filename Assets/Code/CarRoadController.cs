@@ -49,7 +49,7 @@ namespace Assets.Code
                 prefab = PrefabManager.Instance.FracturedRedCar;
             else
                 prefab = PrefabManager.Instance.FracturedBlueCar;
-            Instantiate(prefab, position, transform.rotation).GetComponent<ComponentExplosiveForce>().force *= (1.0f + transform.position.z / 40.0f);
+            Instantiate(prefab, position, transform.rotation).GetComponent<ComponentExplosiveForce>().force *= (1.0f + transform.position.z / 1000.0f);
 
             Instantiate(PrefabManager.Instance.Explosion, position, Quaternion.identity);
 
@@ -144,12 +144,12 @@ namespace Assets.Code
                     }
                 }
 
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
-                    GoLeft();
-                else if (Input.GetKeyDown(KeyCode.RightArrow))
-                    GoRight();
 
             }
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+                GoLeft();
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                GoRight();
         }
 
         private void ResetSwipe()

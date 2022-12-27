@@ -1,20 +1,36 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Assets.Code.Game
 {
     public class ComponentTreeSpawner : MonoBehaviour
     {
-        private int maxTreeAmount = 150;
+        private int maxTreeAmount = 500; //150
+
+        private float xViewWidth;
 
         public void Start()
         {
+            SetViewWidth();
+
             for (int i = 0; i < maxTreeAmount; i++)
                 SpawnTree(true);
+
+        }
+
+        private void SetViewWidth()
+        {
+            float frustumHeight = 2.0f * 300f * Mathf.Tan(Camera.main.fieldOfView * 0.5f * Mathf.Deg2Rad);
+            xViewWidth = frustumHeight * Camera.main.aspect;
+            maxTreeAmount = (int) (xViewWidth * 2);
+            Debug.Log("Frustom width: " + xViewWidth);
         }
 
         public void Update()
         {
-            if(CarRoadController.LocalInstance != null && transform.childCount < maxTreeAmount)
+            SetViewWidth();
+
+            if (CarRoadController.LocalInstance != null && transform.childCount < maxTreeAmount)
             {
                 SpawnTree(false);
             }
@@ -23,7 +39,6 @@ namespace Assets.Code.Game
         private void SpawnTree(bool start)
         {
             const float xGapThreshold = 12.0f;
-            const float xViewWidth = 100.0f;
             const float maxForwardZ = 500f;
 
             float minZ;
