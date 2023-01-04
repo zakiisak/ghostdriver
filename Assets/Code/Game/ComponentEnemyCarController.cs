@@ -29,10 +29,11 @@ namespace Assets.Code.Game
             Instantiate(PrefabManager.Instance.FracturedBlueCar, transform.position, Quaternion.identity).AddComponent<ComponentObjectDespawner>();
         }
 
+        private float udpateRate = 0.02f;
 
-        public void Update()
+        public void FixedUpdate()
         {
-            transform.position += (transform.forward * Speed + impulseAdd) * Time.deltaTime;
+            transform.position += (transform.forward * Speed + impulseAdd) * udpateRate;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets.Code.Game;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Code
 {
@@ -26,19 +28,34 @@ namespace Assets.Code
 
         private Rigidbody body;
 
+        private float timeStarted;
+
+        //if in replay mode, we can not die, and we also can not control ourselves
+        public bool ReplayMode { get; set; }
+
+        private List<ReplayMove> replayMoves;
+
 
         public void OnCollisionEnter(Collision collision)
         {
             bool isDestroyer = collision.gameObject.tag == "destroyer";
-            if (isDestroyer)
+            if (isDestroyer && ReplayMode == false)
             {
-                Destroy(gameObject);
+                //42 is code for car crash
+                replayMoves.Add(new ReplayMove(42, transform.position.z));
 
-                CrashCar();
-                SpawnFracturedCar(transform.position, true);
+                Game.Game.ReplayCode = Game.Game.GenerateReplayCode(replayMoves);
 
-                Game.Game.OnScore();
+                Crash();
             }
+        }
+
+        private void Crash()
+        {
+            Destroy(gameObject);
+            CrashCar();
+            SpawnFracturedCar(transform.position, true);
+            Game.Game.OnScore();
         }
 
         private void SpawnFracturedCar(Vector3 position, bool red)
@@ -66,6 +83,15 @@ namespace Assets.Code
         {
             LocalInstance = this;
             body = GetComponent<Rigidbody>();
+            ReplayMode = Game.Game.ShouldPlayerBeInReplayMode;
+            replayMoves = new List<ReplayMove>();
+            if(ReplayMode)
+            {
+                foreach(ReplayMove move in Game.Game.ReplayMoves)
+                {
+                    replayMoves.Add(move);
+                }
+            }
         }
 
         public void Start()
@@ -176,7 +202,10 @@ namespace Assets.Code
         {
             if (Started)
             {
-                DetectSwipes();
+                if (ReplayMode == false)
+                    DetectSwipes();
+                else UpdateReplayMode();
+
                 AccelerateAndMove();
                 DampenRotation();
                 UpdateEngine();
@@ -185,9 +214,33 @@ namespace Assets.Code
             {
                 if (startDelay > 0f)
                     startDelay -= Time.deltaTime;
-                else Started = true;
+                else
+                {
+                    Started = true;
+                    timeStarted = Time.time;
+                }
             }
             UpdateLanePosition();
+        }
+
+        private void UpdateReplayMode()
+        {
+            for(int i = 0; i < replayMoves.Count; i++)
+            {
+                ReplayMove move = replayMoves[i];
+                if (move.z <= transform.position.z)
+                {
+                    if (move.index == 42)
+                    {
+                        //Destroy
+                        Crash();
+                    }
+                    else laneIndex = move.index;
+                    replayMoves.RemoveAt(i);
+                    i--;
+                }
+                else break;
+            }
         }
 
         private void UpdateEngine()
@@ -259,13 +312,24 @@ namespace Assets.Code
         private void GoRight()
         {
             if (laneIndex < maxLaneIndex)
+            {
                 laneIndex++;
+                AddReplayMove();
+            }
         }
+
 
         private void GoLeft()
         {
             if (laneIndex > 0)
+            {
                 laneIndex--;
+                AddReplayMove();
+            }
+        }
+        private void AddReplayMove()
+        {
+            replayMoves.Add(new ReplayMove(laneIndex, transform.position.z));
         }
     }
 }

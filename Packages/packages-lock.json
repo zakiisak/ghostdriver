@@ -1,5 +1,21 @@
 {
   "dependencies": {
+    "ai.natml.hub": {
+      "version": "1.0.15",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://registry.npmjs.com"
+    },
+    "ai.natml.natcorder": {
+      "version": "1.9.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "ai.natml.hub": "1.0.15"
+      },
+      "url": "https://registry.npmjs.com"
+    },
     "com.unity.adaptiveperformance": {
       "version": "4.0.0",
       "depth": 1,

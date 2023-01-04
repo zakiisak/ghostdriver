@@ -6,16 +6,16 @@ namespace Assets.Code.Game
     {
         public void Start()
         {
-            int count = Random.Range(3, 5);
+            int count = PredictableRandom.Range(3, 5);
             for (int i = 0; i < count; i++)
                 DetermineNextObject(true);
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
             if (CarRoadController.LocalInstance != null)
             {
-                float progressMultiplier = 1.0f + CarRoadController.LocalInstance.transform.position.z / 400.0f;
+                float progressMultiplier = 1.0f + Mathf.Floor(CarRoadController.LocalInstance.transform.position.z) / 400.0f;
                 if (progressMultiplier > 5f)
                     progressMultiplier = 5f;
 
@@ -30,7 +30,7 @@ namespace Assets.Code.Game
 
         private float GetProgressMultiplier()
         {
-            float progressMultiplier = 1.0f + CarRoadController.LocalInstance.transform.position.z / 600.0f;
+            float progressMultiplier = 1.0f + Mathf.Floor(CarRoadController.LocalInstance.transform.position.z) / 600.0f;
             if (progressMultiplier > 4.0f)
                 progressMultiplier = 4.0f;
             return progressMultiplier;
@@ -38,7 +38,7 @@ namespace Assets.Code.Game
 
         private void DetermineNextObject(bool start)
         {
-            float rng = Random.Range(0, 1.0f);
+            float rng = PredictableRandom.Range(0, 1.0f);
             if (rng <= 0.65f)
                 DetermineNextCar(false);
             else if (rng <= 0.95f)
@@ -50,21 +50,21 @@ namespace Assets.Code.Game
 
         private void DetermineNextCar(bool start)
         {
-            float progressMultiplier = CarRoadController.LocalInstance.transform.position.z / 600.0f;
+            float progressMultiplier = Mathf.Floor(CarRoadController.LocalInstance.transform.position.z) / 600.0f;
 
             Vector3 position = GenerateLanePosition(start, start ? 100 : _border);
             position.y = 1.65f;
 
-            SpawnCar(position, Random.Range(0, 1.0f) >= 0.5f, progressMultiplier);
+            SpawnCar(position, PredictableRandom.Range(0, 1.0f) >= 0.5f, progressMultiplier);
         }
 
         private Vector3 GenerateLanePosition(bool start, float border)
         {
-            int laneIndex = Random.Range(0, CarRoadController.maxLaneIndex + 1);
+            int laneIndex = PredictableRandom.Range(0, CarRoadController.maxLaneIndex + 1);
 
             float x = CarRoadController.leftMostLaneX + laneIndex * CarRoadController.laneGap;
 
-            Vector3 position = new Vector3(x, 0, CarRoadController.LocalInstance.transform.position.z + border + Random.Range(0, 300.0f * GetProgressMultiplier()));
+            Vector3 position = new Vector3(x, 0, Mathf.Floor(CarRoadController.LocalInstance.transform.position.z) + border + PredictableRandom.Range(0, 300.0f * GetProgressMultiplier()));
             return position;
         }
 
@@ -73,6 +73,13 @@ namespace Assets.Code.Game
             const float y = 2.8f;
             Vector3 position = GenerateLanePosition(start, start ? 20f : _border);
             position.y = y;
+
+            Collider[] hitColliders = Physics.OverlapSphere(position, 2);
+            foreach(Collider collider in hitColliders)
+            {
+                if (collider.gameObject.tag == "ramp")
+                    return;
+            }
 
             Instantiate(PrefabManager.Instance.Wall, transform).transform.position = position;
         }
@@ -100,21 +107,6 @@ namespace Assets.Code.Game
             car.transform.SetParent(transform, true);
             car.AddComponent<ComponentEnemyCarController>().Speed = speed;
             car.AddComponent<ComponentObjectDespawner>();
-
-            ParticleSystem system = car.transform.GetComponentInChildren<ParticleSystem>();
-            ParticleSystem.EmissionModule emission = system.emission;
-            emission.rateOverTimeMultiplier = 0;
-            emission.rateOverDistanceMultiplier = 0;
-
-
-            //AudioSource source = car.AddComponent<AudioSource>();
-            //source.clip = Resources.Load<AudioClip>("Sounds/engine_1");
-            //source.loop = true;
-            //source.spatialBlend = 1.0f;
-            //source.spatialize = true;
-            //source.volume = 1.0f;
-            //source.maxDistance = 50.0f;
-            //source.Play();
         }
     }
 }

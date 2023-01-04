@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1425238206130197209}
   - component: {fileID: 3756989249050928659}
   - component: {fileID: 6267481725157075479}
-  - component: {fileID: -300475347859387461}
+  - component: {fileID: 6124063343133401015}
   m_Layer: 0
   m_Name: RedCar
   m_TagString: destroyer
@@ -117,7 +117,6 @@ Transform:
   m_Children:
   - {fileID: 2116869620443859427}
   - {fileID: 8928749368540378758}
-  - {fileID: 4533665066070810481}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -191,8 +190,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &-300475347859387461
-MeshCollider:
+--- !u!65 &6124063343133401015
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -201,10 +200,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3821897562022437738, guid: 920ecaf232c2e35408b4113444e6c42c, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 3.3, y: 3.01, z: 7.467738}
+  m_Center: {x: 0.00000023841858, y: 0.35, z: -0.053577065}
 --- !u!1 &2116869620443859426
 GameObject:
   m_ObjectHideFlags: 0
@@ -520,80 +518,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &1406296325061567476
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 2
-    m_TransformParent: {fileID: 1322750668550103940}
-    m_Modifications:
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.33
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3273830325821963448, guid: 183a716d7cd4ee84e919fdc9cde03641,
-        type: 3}
-      propertyPath: m_Name
-      value: Smoke
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_AddedGameObjects: []
-  m_SourcePrefab: {fileID: 100100000, guid: 183a716d7cd4ee84e919fdc9cde03641, type: 3}
---- !u!4 &4533665066070810481 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3273830325821963397, guid: 183a716d7cd4ee84e919fdc9cde03641,
-    type: 3}
-  m_PrefabInstance: {fileID: 1406296325061567476}
-  m_PrefabAsset: {fileID: 0}

@@ -1,17 +1,17 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Code.Game
 {
     public class ComponentTreeSpawner : MonoBehaviour
     {
-        private int maxTreeAmount = 500; //150
+        public static int maxTreeAmount = 500; //150
 
-        private float xViewWidth;
+        public static float xViewWidth;
 
         public void Start()
         {
-            SetViewWidth();
+            if(Game.ShouldPlayerBeInReplayMode == false)
+                SetViewWidth();
 
             for (int i = 0; i < maxTreeAmount; i++)
                 SpawnTree(true);
@@ -26,9 +26,10 @@ namespace Assets.Code.Game
             Debug.Log("Frustom width: " + xViewWidth);
         }
 
-        public void Update()
+        public void FixedUpdate()
         {
-            SetViewWidth();
+            if(Game.ShouldPlayerBeInReplayMode == false)
+                SetViewWidth();
 
             if (CarRoadController.LocalInstance != null && transform.childCount < maxTreeAmount)
             {
@@ -43,12 +44,14 @@ namespace Assets.Code.Game
 
             float minZ;
             if (start)
-                minZ = CarRoadController.LocalInstance.transform.position.z - 10f;
-            else minZ = CarRoadController.LocalInstance.transform.position.z + maxForwardZ;
-            float z = minZ + Random.Range(0, maxForwardZ);
+                minZ = (int) CarRoadController.LocalInstance.transform.position.z - 10f;
+            else minZ = (int) CarRoadController.LocalInstance.transform.position.z + maxForwardZ;
+            float z = minZ + PredictableRandom.Range(0, maxForwardZ);
 
-            float x = Random.Range(0, xViewWidth) - xViewWidth / 2;
+            float x = PredictableRandom.Range(0, xViewWidth) - xViewWidth / 2;
             x += Mathf.Sign(x) * xGapThreshold;
+
+            Debug.Log("xviewWidth: " + xViewWidth + ", maxTreeAmount: " + maxTreeAmount);
 
             Instantiate(PrefabManager.Instance.Tree, transform, true).transform.position = new Vector3(x, 0, z);
         }

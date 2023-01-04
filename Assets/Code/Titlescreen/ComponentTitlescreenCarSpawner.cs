@@ -55,21 +55,6 @@ namespace Assets.Code.Titlescreen
             Destroy(car.GetComponent<NetworkObject>());
             car.AddComponent<ComponentCarTitlescreenController>().goingForward = goingForward;
 
-            ParticleSystem system = car.transform.GetComponentInChildren<ParticleSystem>();
-            ParticleSystem.EmissionModule emission = system.emission;
-            emission.rateOverTimeMultiplier = 0;
-            emission.rateOverDistanceMultiplier = 0;
-
-
-            AudioSource source = car.AddComponent<AudioSource>();
-            source.clip = Resources.Load<AudioClip>("Sounds/engine_1");
-            source.loop = true;
-            source.spatialBlend = 1.0f;
-            source.spatialize = true;
-            source.volume = 1.0f;
-            source.maxDistance = 50.0f;
-            source.Play();
-
             CarCount++;
         }
     }
