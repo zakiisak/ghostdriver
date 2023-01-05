@@ -2,11 +2,11 @@
 
 namespace Assets.Code.Game
 {
-    public class ComponentGameCarSpawner : MonoBehaviour
+    public class ComponentGameObstacleSpawner : MonoBehaviour
     {
         public void Start()
         {
-            int count = PredictableRandom.Range(3, 5);
+            int count = Random.Range(3, 5);
             for (int i = 0; i < count; i++)
                 DetermineNextObject(true);
         }
@@ -38,7 +38,7 @@ namespace Assets.Code.Game
 
         private void DetermineNextObject(bool start)
         {
-            float rng = PredictableRandom.Range(0, 1.0f);
+            float rng = Random.Range(0, 1.0f);
             if (rng <= 0.65f)
                 DetermineNextCar(false);
             else if (rng <= 0.95f)
@@ -55,16 +55,16 @@ namespace Assets.Code.Game
             Vector3 position = GenerateLanePosition(start, start ? 100 : _border);
             position.y = 1.65f;
 
-            SpawnCar(position, PredictableRandom.Range(0, 1.0f) >= 0.5f, progressMultiplier);
+            SpawnCar(position, Random.Range(0, 1.0f) >= 0.5f, progressMultiplier);
         }
 
         private Vector3 GenerateLanePosition(bool start, float border)
         {
-            int laneIndex = PredictableRandom.Range(0, CarRoadController.maxLaneIndex + 1);
+            int laneIndex = Random.Range(0, CarRoadController.maxLaneIndex + 1);
 
             float x = CarRoadController.leftMostLaneX + laneIndex * CarRoadController.laneGap;
 
-            Vector3 position = new Vector3(x, 0, Mathf.Floor(CarRoadController.LocalInstance.transform.position.z) + border + PredictableRandom.Range(0, 300.0f * GetProgressMultiplier()));
+            Vector3 position = new Vector3(x, 0, Mathf.Floor(CarRoadController.LocalInstance.transform.position.z) + border + Random.Range(0, 300.0f * GetProgressMultiplier()));
             return position;
         }
 
@@ -74,7 +74,7 @@ namespace Assets.Code.Game
             Vector3 position = GenerateLanePosition(start, start ? 20f : _border);
             position.y = y;
 
-            Collider[] hitColliders = Physics.OverlapSphere(position, 2);
+            Collider[] hitColliders = Physics.OverlapSphere(position, 5);
             foreach(Collider collider in hitColliders)
             {
                 if (collider.gameObject.tag == "ramp")

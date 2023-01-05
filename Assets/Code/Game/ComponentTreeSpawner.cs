@@ -10,8 +10,7 @@ namespace Assets.Code.Game
 
         public void Start()
         {
-            if(Game.ShouldPlayerBeInReplayMode == false)
-                SetViewWidth();
+            SetViewWidth();
 
             for (int i = 0; i < maxTreeAmount; i++)
                 SpawnTree(true);
@@ -28,8 +27,7 @@ namespace Assets.Code.Game
 
         public void FixedUpdate()
         {
-            if(Game.ShouldPlayerBeInReplayMode == false)
-                SetViewWidth();
+            SetViewWidth();
 
             if (CarRoadController.LocalInstance != null && transform.childCount < maxTreeAmount)
             {
@@ -46,12 +44,10 @@ namespace Assets.Code.Game
             if (start)
                 minZ = (int) CarRoadController.LocalInstance.transform.position.z - 10f;
             else minZ = (int) CarRoadController.LocalInstance.transform.position.z + maxForwardZ;
-            float z = minZ + PredictableRandom.Range(0, maxForwardZ);
+            float z = minZ + Random.Range(0, maxForwardZ);
 
-            float x = PredictableRandom.Range(0, xViewWidth) - xViewWidth / 2;
+            float x = Random.Range(0, xViewWidth) - xViewWidth / 2;
             x += Mathf.Sign(x) * xGapThreshold;
-
-            Debug.Log("xviewWidth: " + xViewWidth + ", maxTreeAmount: " + maxTreeAmount);
 
             Instantiate(PrefabManager.Instance.Tree, transform, true).transform.position = new Vector3(x, 0, z);
         }

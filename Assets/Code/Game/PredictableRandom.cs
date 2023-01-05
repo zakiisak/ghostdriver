@@ -35,14 +35,12 @@ namespace Assets.Code.Game
             else 
                 result = random.Next(maxExclusive - minInclusive) + minInclusive;
 
-            UnityEngine.Debug.Log("int Range: " + result);
             return result;
         }
         public static float Range(float minInclusive, float maxInclusive)
         {
             float diff = maxInclusive - minInclusive;
             float result = minInclusive + (float)(random.NextDouble() * diff);
-            UnityEngine.Debug.Log("float Range: " + result);
             return result;
         }
 

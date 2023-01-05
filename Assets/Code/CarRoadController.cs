@@ -28,24 +28,12 @@ namespace Assets.Code
 
         private Rigidbody body;
 
-        private float timeStarted;
-
-        //if in replay mode, we can not die, and we also can not control ourselves
-        public bool ReplayMode { get; set; }
-
-        private List<ReplayMove> replayMoves;
-
 
         public void OnCollisionEnter(Collision collision)
         {
             bool isDestroyer = collision.gameObject.tag == "destroyer";
-            if (isDestroyer && ReplayMode == false)
+            if (isDestroyer)
             {
-                //42 is code for car crash
-                replayMoves.Add(new ReplayMove(42, transform.position.z));
-
-                Game.Game.ReplayCode = Game.Game.GenerateReplayCode(replayMoves);
-
                 Crash();
             }
         }
@@ -83,15 +71,6 @@ namespace Assets.Code
         {
             LocalInstance = this;
             body = GetComponent<Rigidbody>();
-            ReplayMode = Game.Game.ShouldPlayerBeInReplayMode;
-            replayMoves = new List<ReplayMove>();
-            if(ReplayMode)
-            {
-                foreach(ReplayMove move in Game.Game.ReplayMoves)
-                {
-                    replayMoves.Add(move);
-                }
-            }
         }
 
         public void Start()
@@ -202,9 +181,7 @@ namespace Assets.Code
         {
             if (Started)
             {
-                if (ReplayMode == false)
-                    DetectSwipes();
-                else UpdateReplayMode();
+                DetectSwipes();
 
                 AccelerateAndMove();
                 DampenRotation();
@@ -217,30 +194,9 @@ namespace Assets.Code
                 else
                 {
                     Started = true;
-                    timeStarted = Time.time;
                 }
             }
             UpdateLanePosition();
-        }
-
-        private void UpdateReplayMode()
-        {
-            for(int i = 0; i < replayMoves.Count; i++)
-            {
-                ReplayMove move = replayMoves[i];
-                if (move.z <= transform.position.z)
-                {
-                    if (move.index == 42)
-                    {
-                        //Destroy
-                        Crash();
-                    }
-                    else laneIndex = move.index;
-                    replayMoves.RemoveAt(i);
-                    i--;
-                }
-                else break;
-            }
         }
 
         private void UpdateEngine()
@@ -314,7 +270,6 @@ namespace Assets.Code
             if (laneIndex < maxLaneIndex)
             {
                 laneIndex++;
-                AddReplayMove();
             }
         }
 
@@ -324,12 +279,7 @@ namespace Assets.Code
             if (laneIndex > 0)
             {
                 laneIndex--;
-                AddReplayMove();
             }
-        }
-        private void AddReplayMove()
-        {
-            replayMoves.Add(new ReplayMove(laneIndex, transform.position.z));
         }
     }
 }

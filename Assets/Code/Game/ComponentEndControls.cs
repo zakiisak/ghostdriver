@@ -7,8 +7,7 @@ namespace Assets.Code.Game
     {
         public void Replay()
         {
-            if(Game.ShouldPlayerBeInReplayMode)
-                PredictableRandom.SetSeed(PredictableRandom.GetSeed());
+            PredictableRandom.SetRandomSeed();
             SceneManager.LoadScene(1);
         }
 
@@ -17,11 +16,32 @@ namespace Assets.Code.Game
             SceneManager.LoadScene(0);
         }
 
-        public void CopyReplayCode()
+        public void ShareReplay()
         {
-            Debug.Log("Replay Code: " + Game.ReplayCode);
-            GUIUtility.systemCopyBuffer = Game.ReplayCode;
+            string path = ComponentScreenRecorder.Instance.VideoPath;
+
+            new NativeShare().AddFile(path)
+        .SetSubject("Subject goes here").SetText("Ghost Driver Replay - Score " + ComponentScoreController.Score)
+        .SetCallback((result, shareTarget) => Debug.Log("Share result: " + result + ", selected app: " + shareTarget))
+        .Share();
+
+            /*
+            if(SharePayload.Supported)
+            {
+                SharePayload share = new SharePayload();
+                share.AddText("Ghost Driver Replay - Score " + ComponentScoreController.Score);
+                share.AddMedia(path);
+                string result = await share.Share();
+                Debug.Log("Share payload share result: " + result);
+            }
+            else
+            {
+                Debug.Log("Sharing not supported on this platform. The media path: is " + path);
+            }
+            */
+
         }
+
 
     }
 }
