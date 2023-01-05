@@ -64,7 +64,7 @@ namespace Assets.Code.Game
 
             float x = CarRoadController.leftMostLaneX + laneIndex * CarRoadController.laneGap;
 
-            Vector3 position = new Vector3(x, 0, Mathf.Floor(CarRoadController.LocalInstance.transform.position.z) + border + Random.Range(0, 300.0f * GetProgressMultiplier()));
+            Vector3 position = new Vector3(x, 0, Mathf.Floor(CarRoadController.LocalInstance.transform.position.z) + border + Random.Range(0, 200.0f * GetProgressMultiplier()));
             return position;
         }
 
@@ -74,7 +74,7 @@ namespace Assets.Code.Game
             Vector3 position = GenerateLanePosition(start, start ? 20f : _border);
             position.y = y;
 
-            Collider[] hitColliders = Physics.OverlapSphere(position, 5);
+            Collider[] hitColliders = Physics.OverlapSphere(position, 10);
             foreach(Collider collider in hitColliders)
             {
                 if (collider.gameObject.tag == "ramp")
@@ -89,6 +89,13 @@ namespace Assets.Code.Game
             const float y = 0.0f;
             Vector3 position = GenerateLanePosition(start, start ? 20f : _border);
             position.y = y;
+
+            Collider[] hitColliders = Physics.OverlapSphere(position, 10);
+            foreach (Collider collider in hitColliders)
+            {
+                if (collider.gameObject.tag == "destroyer")
+                    return;
+            }
 
             Instantiate(PrefabManager.Instance.Ramp, transform).transform.position = position;
         }

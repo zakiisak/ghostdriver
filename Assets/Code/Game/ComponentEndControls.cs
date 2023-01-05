@@ -18,12 +18,7 @@ namespace Assets.Code.Game
 
         public void ShareReplay()
         {
-            string path = ComponentScreenRecorder.Instance.VideoPath;
-
-            new NativeShare().AddFile(path)
-        .SetSubject("Subject goes here").SetText("Ghost Driver Replay - Score " + ComponentScoreController.Score)
-        .SetCallback((result, shareTarget) => Debug.Log("Share result: " + result + ", selected app: " + shareTarget))
-        .Share();
+            ComponentScreenRecorder.Instance.Share();
 
             /*
             if(SharePayload.Supported)

@@ -1,6 +1,9 @@
 ﻿using NatML.Recorders;
 using NatML.Recorders.Clocks;
 using NatML.Recorders.Inputs;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -8,6 +11,19 @@ namespace Assets.Code.Game
 {
     public class ComponentScreenRecorder : MonoBehaviour
     {
+        public struct VideoPathEntry
+        {
+            public float time;
+            public string path;
+
+            public VideoPathEntry(float time, string path)
+            {
+                this.time = time;
+                this.path = path;
+            }
+        }
+
+        public static List<VideoPathEntry> VideoPaths = new List<VideoPathEntry>();
         public static ComponentScreenRecorder Instance { get; private set; }
 
         private RealtimeClock clock;
@@ -18,6 +34,10 @@ namespace Assets.Code.Game
 
         public bool Active { get; private set; }
         public bool Sharable { get { return VideoPath != null; } }
+
+        public bool HasBeenShared { get; private set; }
+
+        private bool deleteUponFinish = false;
 
         public void Awake()
         {
@@ -51,13 +71,66 @@ namespace Assets.Code.Game
 
             VideoPath = path;
 
+            if(deleteUponFinish)
+            {
+                DeleteVideo(path);
+            }
+            else VideoPaths.Add(new VideoPathEntry(Time.time, path));
+
             return path;
+        }
+
+        private bool DeleteVideo(string path)
+        {
+            try
+            {
+                File.Delete(path);
+                Debug.Log("Deleted video " + path);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
+            return false;
+        }
+
+        public void Share()
+        {
+            HasBeenShared = true;
+
+            new NativeShare().AddFile(VideoPath)
+                .SetSubject("Ghost Driver Replay - Score " + ComponentScoreController.Score)
+                .SetCallback((result, shareTarget) => Debug.Log("Share result: " + result + ", selected app: " + shareTarget))
+                .Share();
+        }
+
+        private float lastTimeRunDeleteCheck;
+
+        public void FixedUpdate()
+        {
+            if(Time.time - lastTimeRunDeleteCheck > 0.5f)
+            {
+                for(int i = 0; i < VideoPaths.Count; i++)
+                {
+                    VideoPathEntry entry = VideoPaths[i];
+
+                    if(Time.time - entry.time > 5.0f && entry.path != VideoPath) //Don't delete the current video recorded, when idling in the leaderboard screen.
+                    {
+                        if(DeleteVideo(entry.path))
+                            VideoPaths.RemoveAt(i--);
+                    }
+                }
+            }
         }
 
         public void OnDestroy()
         {
-            if (Active)
+            if (Active && HasBeenShared == false)
+            {
+                deleteUponFinish = true;
                 Finish();
+            }
         }
 
     }

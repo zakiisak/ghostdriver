@@ -14,13 +14,18 @@ namespace Assets.Code.Titlescreen
 
         public void Start()
         {
-
+            PlayerPrefs.HasKey("Quality");
         }
 
         public void OnStartPressed()
         {
             PredictableRandom.SetRandomSeed();
             SceneManager.LoadScene(1);
+        }
+
+        public void OnSettingsPressed()
+        {
+            SceneManager.LoadScene(5);
         }
 
 

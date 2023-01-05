@@ -8,6 +8,12 @@ namespace Assets.Code.Game
 
         public static float xViewWidth;
 
+        public void Awake()
+        {
+            if(Settings.TreesEnabled == false)
+                Destroy(gameObject);
+        }
+
         public void Start()
         {
             SetViewWidth();

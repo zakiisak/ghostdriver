@@ -13,7 +13,6 @@ namespace Assets.Code
             foreach(Rigidbody r in rb)
             {
                 r.velocity = r.transform.localPosition * force;
-                Debug.Log("Fractured part velocity : " + r.velocity);
             }
         }
 
