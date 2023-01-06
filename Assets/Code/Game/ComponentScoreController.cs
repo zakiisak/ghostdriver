@@ -14,9 +14,9 @@ namespace Assets.Code.Game
 
         public void Update()
         {
-            if(CarRoadController.LocalInstance != null)
+            if(PlayerController.LocalInstance != null)
             {
-                int progress = (int) Math.Max(CarRoadController.LocalInstance.transform.position.z / 50.0f, 1);
+                int progress = (int) Math.Max(PlayerController.LocalInstance.transform.position.z / 50.0f, 1);
                 Score = progress;
 
                 if(progress != lastProgress)

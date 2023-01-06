@@ -7,8 +7,8 @@ namespace Assets.Code.Game
 
         public void Update()
         {
-            if(CarRoadController.LocalInstance != null)
-                transform.position = new Vector3(transform.position.x, transform.position.y, CarRoadController.LocalInstance.transform.position.z);
+            if(PlayerController.LocalInstance != null)
+                transform.position = new Vector3(transform.position.x, transform.position.y, PlayerController.LocalInstance.transform.position.z);
         }
 
     }

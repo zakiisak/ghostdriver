@@ -35,7 +35,7 @@ namespace Assets.Code.Game
         {
             SetViewWidth();
 
-            if (CarRoadController.LocalInstance != null && transform.childCount < maxTreeAmount)
+            if (PlayerController.LocalInstance != null && transform.childCount < maxTreeAmount)
             {
                 SpawnTree(false);
             }
@@ -48,8 +48,8 @@ namespace Assets.Code.Game
 
             float minZ;
             if (start)
-                minZ = (int) CarRoadController.LocalInstance.transform.position.z - 10f;
-            else minZ = (int) CarRoadController.LocalInstance.transform.position.z + maxForwardZ;
+                minZ = (int) PlayerController.LocalInstance.transform.position.z - 10f;
+            else minZ = (int) PlayerController.LocalInstance.transform.position.z + maxForwardZ;
             float z = minZ + Random.Range(0, maxForwardZ);
 
             float x = Random.Range(0, xViewWidth) - xViewWidth / 2;

@@ -9,13 +9,20 @@ namespace Assets.Code.Game
 
         private Vector3 impulseAdd = Vector3.zero;
 
+        private float startY;
+
+        public void Awake()
+        {
+            startY = transform.position.y;
+        }
+
         public void OnCollisionEnter(Collision collision)
         {
             string tag = collision.gameObject.tag;
-            if (tag == "destroyer" || tag == "ramp")
+            if (tag == "destroyer" || tag == "ramp" || tag == "truck" || collision.gameObject.GetComponent<ComponentTruck>() != null)
             {
                 Explode();
-                if(collision.rigidbody != null)
+                if(collision.rigidbody != null && collision.gameObject.GetComponent<RedBoxController>() != null)
                     collision.rigidbody.velocity += transform.forward * Speed;
             }
 
@@ -33,7 +40,16 @@ namespace Assets.Code.Game
 
         public void FixedUpdate()
         {
-            transform.position += (transform.forward * Speed + impulseAdd) * udpateRate;
+            transform.position += (transform.forward * Speed + impulseAdd) * Time.fixedDeltaTime;
+            //PreventFromFallingThroughGround();
+        }
+
+        private void PreventFromFallingThroughGround()
+        {
+            if(transform.position.y < startY)
+            {
+                transform.position = new Vector3(transform.position.x, startY, transform.position.z);
+            }
         }
     }
 }

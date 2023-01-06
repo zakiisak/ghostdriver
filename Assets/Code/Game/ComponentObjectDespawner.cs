@@ -14,9 +14,9 @@ namespace Assets.Code.Game
 
         private void UpdateDespawning()
         {
-            if(CarRoadController.LocalInstance != null)
+            if(PlayerController.LocalInstance != null)
             {
-                if (transform.position.z < CarRoadController.LocalInstance.transform.position.z - zDistanceBehindPlayer)
+                if (transform.position.z < PlayerController.LocalInstance.transform.position.z - zDistanceBehindPlayer)
                     Destroy(gameObject);
             }
         }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Assets.Code
 {
-    public class CarRoadController : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
-        public static CarRoadController LocalInstance { get; private set; }
+        public static PlayerController LocalInstance { get; private set; }
 
         public bool Started { get; set; }
 
@@ -18,23 +18,31 @@ namespace Assets.Code
         private int laneIndex = maxLaneIndex / 2;
 
         private float zSpeed;
-        private float acceleration = 10.0f;
+        private float acceleration = 30.0f;
 
-        private const float startMaxZSpeed = 40.0f;
+        private const float startMaxZSpeed = 80.0f;
         private float maxZSpeed = startMaxZSpeed;
-        private const float overallMaxZSpeed = 200f;
+        private const float overallMaxZSpeed = 400f;
 
         private float startDelay = 1.0f;
 
         private Rigidbody body;
 
+        private bool pressInputMode;
+
 
         public void OnCollisionEnter(Collision collision)
         {
             bool isDestroyer = collision.gameObject.tag == "destroyer";
-            if (isDestroyer)
+            bool hasTruck = GetComponent<ComponentTruck>() != null;
+            if (isDestroyer && hasTruck == false)
             {
                 Crash();
+            }
+
+            if(isDestroyer && hasTruck)
+            {
+                body.velocity += collision.relativeVelocity;
             }
         }
 
@@ -71,6 +79,7 @@ namespace Assets.Code
         {
             LocalInstance = this;
             body = GetComponent<Rigidbody>();
+            pressInputMode = PlayerPrefs.GetInt("InputMode", 0) == 1;
         }
 
         public void Start()
@@ -151,11 +160,8 @@ namespace Assets.Code
 
 
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
-                GoLeft();
-            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
-                GoRight();
         }
+
 
         private void ResetSwipe()
         {
@@ -174,14 +180,50 @@ namespace Assets.Code
                 GoLeft();
 
             }
+        }
 
+        private void DetectPresses()
+        {
+            foreach (Touch touch in Input.touches)
+            {
+                if (touch.phase == TouchPhase.Began)
+                {
+                    Debug.Log("touch position: " + touch.position);
+                    if (touch.position.x < Screen.width / 2)
+                        GoLeft();
+                    else GoRight();
+                    break;
+                }
+            }
+
+            if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+            {
+                if (Input.mousePosition.x < Screen.width / 2)
+                    GoLeft();
+                else GoRight();
+            }
+        }
+
+        private void HandleInput()
+        {
+            Debug.Log("Press Input Mode " + pressInputMode);
+            if (pressInputMode)
+            {
+                DetectPresses();
+            }
+            else DetectSwipes();
+
+            if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A))
+                GoLeft();
+            else if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D))
+                GoRight();
         }
 
         public void Update()
         {
             if (Started)
             {
-                DetectSwipes();
+                HandleInput();
 
                 AccelerateAndMove();
                 DampenRotation();
@@ -224,13 +266,22 @@ namespace Assets.Code
 
             float progressMultiplier = transform.position.z / 100.0f;
 
-            maxZSpeed = startMaxZSpeed + (int) progressMultiplier * 3.0f;
+            maxZSpeed = startMaxZSpeed + (int) progressMultiplier * 6.0f;
             if (maxZSpeed > overallMaxZSpeed)
                 maxZSpeed = overallMaxZSpeed;
 
             body.velocity = new Vector3(0, body.velocity.y, zSpeed);
+            PreventFromFallingThroughGround();
+            //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zSpeed * Time.deltaTime);
+        }
 
-            transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zSpeed * Time.deltaTime);
+
+        private void PreventFromFallingThroughGround()
+        {
+            if(transform.position.y < 1.58f)
+            {
+                transform.position = new Vector3(transform.position.x, 1.58f, transform.position.z);
+            }
         }
 
         private void UpdateLanePosition()
@@ -257,7 +308,7 @@ namespace Assets.Code
         {
             Light[] lights = GetComponentsInChildren<Light>();
             foreach (Light light in lights)
-                light.enabled = false;
+                light.enabled = true;
         }
 
         public void StartEngine()

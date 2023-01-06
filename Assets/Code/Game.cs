@@ -63,8 +63,8 @@ namespace Assets.Code.Game
         {
             RenderSettings.fogEndDistance = 50f;
 
-            CarRoadController[] cars = GameObject.FindObjectsOfType<CarRoadController>();
-            foreach (CarRoadController car in cars)
+            PlayerController[] cars = GameObject.FindObjectsOfType<PlayerController>();
+            foreach (PlayerController car in cars)
             {
                 car.TurnOffLights();
             }
@@ -86,8 +86,8 @@ namespace Assets.Code.Game
         {
             RenderSettings.fogEndDistance = 220.0f;
 
-            CarRoadController[] cars = GameObject.FindObjectsOfType<CarRoadController>();
-            foreach (CarRoadController car in cars)
+            PlayerController[] cars = GameObject.FindObjectsOfType<PlayerController>();
+            foreach (PlayerController car in cars)
             {
                 car.TurnOnLights();
             }

@@ -32,7 +32,7 @@ namespace Assets.Code.Titlescreen
 
                 float border = 50.0f;
 
-                float x = goingForward ? (CarRoadController.leftMostLaneXTitlescreen + CarRoadController.laneGap) : CarRoadController.leftMostLaneXTitlescreen;
+                float x = goingForward ? (PlayerController.leftMostLaneXTitlescreen + PlayerController.laneGap) : PlayerController.leftMostLaneXTitlescreen;
 
                 Vector3 position = new Vector3(x, 1.65f, border * direction + Random.Range(0, 40.0f) * direction);
 
@@ -51,7 +51,7 @@ namespace Assets.Code.Titlescreen
 
             GameObject car = Instantiate(prefab, position, Quaternion.Euler(0, goingForward ? 0 : 180, 0));
             Destroy(car.GetComponent<ComponentCameraFollower>());
-            Destroy(car.GetComponent<CarRoadController>());
+            Destroy(car.GetComponent<PlayerController>());
             Destroy(car.GetComponent<NetworkObject>());
             car.AddComponent<ComponentCarTitlescreenController>().goingForward = goingForward;
 

@@ -12,12 +12,15 @@ namespace Assets.Code
 
         public GameObject RedCar;
         public GameObject BlueCar;
+        public GameObject Truck;
         public GameObject Tree;
         public GameObject Road;
         public GameObject Wall;
         public GameObject Ramp;
+        public GameObject Star;
 
         public GameObject Explosion;
+        public GameObject StarPickup;
 
 
         public List<AudioClip> Sound_Engine;

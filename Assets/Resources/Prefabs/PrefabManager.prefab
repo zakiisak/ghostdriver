@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2003639277311685692
 MonoBehaviour:
@@ -50,9 +50,15 @@ MonoBehaviour:
     type: 3}
   RedCar: {fileID: 1806095273775511870, guid: b6fd8c25ffbfacd4dbc64dcc3cb5ab4f, type: 3}
   BlueCar: {fileID: 319803544938846528, guid: baa10bbc7a409c740a4d612391b1de19, type: 3}
+  Truck: {fileID: 7357997383880330114, guid: fa049976a62ad354f8b116e58e8ef3c1, type: 3}
   Tree: {fileID: 5585813110430026930, guid: 33c53dbf22a8e9c418ab62f106d55071, type: 3}
   Road: {fileID: 2236006276440438329, guid: fa6c8dd96bcff2a48a270fd7c62c363c, type: 3}
+  Wall: {fileID: 3078898378923593106, guid: 3eeb6fb590476ed47b1fb8905dca72b1, type: 3}
+  Ramp: {fileID: 6027017207073396483, guid: 7b92ad72ab6b7d949852072abc5681fb, type: 3}
+  Star: {fileID: 8713429931033692264, guid: 1426c44e34cd4ac499c831a143fb04b3, type: 3}
   Explosion: {fileID: 3392722150967959280, guid: d59697bd830f3f843a4452d9c03c6312,
+    type: 3}
+  StarPickup: {fileID: 6779564169667133396, guid: 627456f41756d2441a59e6fc39175158,
     type: 3}
   Sound_Engine:
   - {fileID: 8300000, guid: c20a605e55cb3704799490ecb330f048, type: 3}
