@@ -14,7 +14,12 @@ namespace Assets.Code.Titlescreen
 
         public void Start()
         {
-            PlayerPrefs.HasKey("Quality");
+            if(PlayerPrefs.HasKey("Quality"))
+            {
+                int qualityLevel = PlayerPrefs.GetInt("Quality");
+                QualitySettings.SetQualityLevel(qualityLevel);
+            }
+            Game.Game.DeleteAllSavedReplays();
         }
 
         public void OnStartPressed()

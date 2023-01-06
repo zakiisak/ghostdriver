@@ -11,7 +11,7 @@ namespace Assets.Code.Game
 
         private GameObject truck;
 
-        private float scaleModifier = 1.0f;
+        private float destScalePercentage = 1.0f;
 
         public void OnCollisionEnter(Collision collision)
         {
@@ -46,7 +46,8 @@ namespace Assets.Code.Game
         public void Upgrade()
         {
             timeLeft += 5.0f;
-            scaleModifier += 0.5f;
+            destScalePercentage += 0.5f;
+
         }
 
         public void Update()
@@ -54,7 +55,7 @@ namespace Assets.Code.Game
             if(timeLeft > 0)
             {
                 timeLeft -= Time.deltaTime;
-                if (scalePercentage < 1f)
+                if (scalePercentage < destScalePercentage)
                 {
                     scalePercentage += Time.deltaTime;
                     UpdateScale();
@@ -91,8 +92,7 @@ namespace Assets.Code.Game
 
         private void UpdateScale()
         {
-            float s = Mathf.Clamp(scalePercentage, 0, 1);
-            s *= scaleModifier;
+            float s = Mathf.Clamp(scalePercentage, 0, destScalePercentage);
             truck.transform.localScale = new Vector3(s, s, s);
         }
     }

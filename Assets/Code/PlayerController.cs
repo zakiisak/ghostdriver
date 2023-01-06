@@ -272,7 +272,9 @@ namespace Assets.Code
 
             body.velocity = new Vector3(0, body.velocity.y, zSpeed);
             PreventFromFallingThroughGround();
-            //transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zSpeed * Time.deltaTime);
+
+            if(GetComponent<ComponentTruck>() != null)
+                transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zSpeed * Time.deltaTime);
         }
 
 

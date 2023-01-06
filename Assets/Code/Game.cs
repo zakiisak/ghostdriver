@@ -1,4 +1,7 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 namespace Assets.Code.Game
@@ -18,6 +21,29 @@ namespace Assets.Code.Game
             ShowStatus();
 
             ComponentScreenRecorder.Instance.StartCoroutine(StopRecordingAfter3Seconds());
+        }
+
+        public static void DeleteAllSavedReplays()
+        {
+            if(PlayerPrefs.HasKey("Replays"))
+            {
+                string replaysString = PlayerPrefs.GetString("Replays");
+                Replays replays = JsonUtility.FromJson<Replays>(replaysString);
+                foreach(string replayPath in replays.VideoPaths)
+                {
+                    try
+                    {
+                        File.Delete(replayPath);
+                    }
+                    catch(Exception e)
+                    {
+                        Debug.LogException(e);
+                    }
+                }
+                replays.Clear();
+                PlayerPrefs.SetString("Replays", JsonUtility.ToJson(replays));
+                PlayerPrefs.Save();
+            }
         }
 
         private static IEnumerator StopRecordingAfter3Seconds()

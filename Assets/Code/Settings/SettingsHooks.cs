@@ -13,17 +13,20 @@ namespace Assets.Code.Settings
 
         public void OnLowSelected()
         {
-            QualitySettings.SetQualityLevel(0);
+            PlayerPrefs.SetInt("Quality", 0);
+            PlayerPrefs.Save();
         }
 
         public void OnMediumSelected()
         {
-            QualitySettings.SetQualityLevel(1);
+            PlayerPrefs.SetInt("Quality", 1);
+            PlayerPrefs.Save();
         }
 
         public void OnHighSelected()
         {
-            QualitySettings.SetQualityLevel(2);
+            PlayerPrefs.SetInt("Quality", 2);
+            PlayerPrefs.Save();
         }
     }
 }

@@ -145,8 +145,10 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 11400000, guid: 7c8314a5b36b6a9429aa3733f8f24483, type: 2}
-  - {fileID: 11400000, guid: c1b4248b2517cb64380ba8da3b2b0996, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 93e0934cdf5a95e49864005d02c3d2fc, type: 2}
+  - {fileID: 11400000, guid: d9609791642c2c043b43a144ebdde761, type: 2}
   - {fileID: -8967298081575910841, guid: 0ad8ca7537266094d83f6257e8f8157b, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -174,7 +176,7 @@ PlayerSettings:
     iPhone: 1
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 11
+  AndroidBundleVersionCode: 12
   AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 31
   AndroidPreferredInstallLocation: 1

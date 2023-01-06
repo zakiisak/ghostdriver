@@ -23,7 +23,6 @@ namespace Assets.Code.Game
             }
         }
 
-        public static List<VideoPathEntry> VideoPaths = new List<VideoPathEntry>();
         public static ComponentScreenRecorder Instance { get; private set; }
 
         private RealtimeClock clock;
@@ -71,13 +70,23 @@ namespace Assets.Code.Game
 
             VideoPath = path;
 
-            if(deleteUponFinish)
+            if (deleteUponFinish)
             {
                 DeleteVideo(path);
             }
-            else VideoPaths.Add(new VideoPathEntry(Time.time, path));
 
             return path;
+        }
+
+        private void SaveVideoPath(string path)
+        {
+            Replays replays = new Replays();
+            if(PlayerPrefs.HasKey("Replays"))
+                replays = JsonUtility.FromJson<Replays>(PlayerPrefs.GetString("Replays"));
+
+            replays.Add(path);
+            PlayerPrefs.SetString("Replays", JsonUtility.ToJson(replays));
+            PlayerPrefs.Save();
         }
 
         private bool DeleteVideo(string path)
@@ -103,10 +112,13 @@ namespace Assets.Code.Game
                 .SetSubject("Ghost Driver Replay - Score " + ComponentScoreController.Score)
                 .SetCallback((result, shareTarget) => Debug.Log("Share result: " + result + ", selected app: " + shareTarget))
                 .Share();
+
+            SaveVideoPath(VideoPath);
         }
 
         private float lastTimeRunDeleteCheck;
 
+        /*
         public void FixedUpdate()
         {
             if(Time.time - lastTimeRunDeleteCheck > 0.5f)
@@ -123,14 +135,27 @@ namespace Assets.Code.Game
                 }
             }
         }
+        */
+
+        public void Stop()
+        {
+            if (HasBeenShared == false)
+            {
+                if(Active)
+                {
+                    deleteUponFinish = true;
+                    Finish();
+                }
+                else
+                {
+                    DeleteVideo(VideoPath);
+                }
+            }
+        }
 
         public void OnDestroy()
         {
-            if (Active && HasBeenShared == false)
-            {
-                deleteUponFinish = true;
-                Finish();
-            }
+
         }
 
     }

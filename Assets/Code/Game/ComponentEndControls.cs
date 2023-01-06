@@ -7,12 +7,14 @@ namespace Assets.Code.Game
     {
         public void Replay()
         {
+            ComponentScreenRecorder.Instance.Stop();
             PredictableRandom.SetRandomSeed();
             SceneManager.LoadScene(1);
         }
 
         public void OnExit()
         {
+            ComponentScreenRecorder.Instance.Stop();
             SceneManager.LoadScene(0);
         }
 
