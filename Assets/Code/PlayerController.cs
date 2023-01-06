@@ -184,6 +184,7 @@ namespace Assets.Code
 
         private void DetectPresses()
         {
+            /*
             foreach (Touch touch in Input.touches)
             {
                 if (touch.phase == TouchPhase.Began)
@@ -195,6 +196,7 @@ namespace Assets.Code
                     break;
                 }
             }
+            */
 
             if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
             {

@@ -1842,7 +1842,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zDistance: 2
-  yPercentDistance: 0.12
+  yPercentDistance: 0.22
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

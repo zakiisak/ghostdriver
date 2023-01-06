@@ -38,13 +38,20 @@ namespace Assets.Code.Game
 
         private bool deleteUponFinish = false;
 
+        public bool SettingEnabled { get; private set; }
+
+
         public void Awake()
         {
             Instance = this;
+            SettingEnabled = PlayerPrefs.GetInt("ReplaysEnabled", 1) == 1;
         }
 
         public void Start()
         {
+            if (SettingEnabled == false)
+                return;
+
             Camera camera = Camera.main;
 
             clock = new RealtimeClock();
@@ -63,6 +70,9 @@ namespace Assets.Code.Game
 
         public async Task<string> Finish()
         {
+            if (SettingEnabled == false)
+                return "";
+
             Active = false;
             cameraInput.Dispose();
 
@@ -106,6 +116,9 @@ namespace Assets.Code.Game
 
         public void Share()
         {
+            if (SettingEnabled == false)
+                return;
+
             HasBeenShared = true;
 
             new NativeShare().AddFile(VideoPath)
@@ -139,6 +152,9 @@ namespace Assets.Code.Game
 
         public void Stop()
         {
+            if (SettingEnabled == false)
+                return;
+
             if (HasBeenShared == false)
             {
                 if(Active)
@@ -151,11 +167,6 @@ namespace Assets.Code.Game
                     DeleteVideo(VideoPath);
                 }
             }
-        }
-
-        public void OnDestroy()
-        {
-
         }
 
     }

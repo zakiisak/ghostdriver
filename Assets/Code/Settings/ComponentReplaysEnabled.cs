@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Assets.Code.Settings
 {
-    public class ComponentTreesEnabled : MonoBehaviour
+    public class ComponentReplaysEnabled : MonoBehaviour
     {
         public Toggle toggle;
 
@@ -11,15 +11,14 @@ namespace Assets.Code.Settings
         {
             toggle = GetComponent<Toggle>();
 
-            toggle.isOn = PlayerPrefs.GetInt("TreesDisabled", 0) == 0;
+            toggle.isOn = PlayerPrefs.GetInt("ReplaysEnabled", 1) == 1;
         }
 
         public void OnToggled()
         {
-            int val = toggle.isOn ? 0 : 1;
-            PlayerPrefs.SetInt("TreesDisabled", val);
+            int val = toggle.isOn ? 1: 0;
+            PlayerPrefs.SetInt("ReplaysEnabled", val);
             PlayerPrefs.Save();
-            Debug.Log("Is on: " + val);
         }
     }
 }

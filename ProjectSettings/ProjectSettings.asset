@@ -147,6 +147,9 @@ PlayerSettings:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 93e0934cdf5a95e49864005d02c3d2fc, type: 2}
   - {fileID: 11400000, guid: d9609791642c2c043b43a144ebdde761, type: 2}
   - {fileID: -8967298081575910841, guid: 0ad8ca7537266094d83f6257e8f8157b, type: 2}
@@ -176,7 +179,7 @@ PlayerSettings:
     iPhone: 1
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 12
+  AndroidBundleVersionCode: 13
   AndroidMinSdkVersion: 24
   AndroidTargetSdkVersion: 31
   AndroidPreferredInstallLocation: 1
@@ -912,6 +915,7 @@ PlayerSettings:
   vrEditorSettings: {}
   cloudServicesEnabled:
     UNet: 1
+    Unity Ads: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -925,7 +929,7 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 0
-  cloudProjectId: 
+  cloudProjectId: ad84cab7-1748-43f9-8896-3c9eb9e2c5f7
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames:
   - Very Low
@@ -934,8 +938,8 @@ PlayerSettings:
   - High
   - Very High
   - Ultra
-  projectName: 
-  organizationId: 
+  projectName: Ghostdriver
+  organizationId: zakiisak
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

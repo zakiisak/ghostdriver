@@ -1,26 +1,33 @@
-﻿using UnityEngine;
-using GoogleMobileAds.Api;
+﻿using GoogleMobileAds.Api;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.SceneManagement;
 
 namespace Assets.Code.Game
 {
-    public class ComponentAdDisplay : MonoBehaviour
+    public class ComponentAdDisplay : MonoBehaviour, IUnityAdsInitializationListener
     {
         private BannerView bannerView;
+        private string unityIosGameId = "5107372";
+        private string unityIosPlacementId = "ios_banner";
 
         public void Start()
         {
+#if UNITY_ANDROID
             // Initialize the Google Mobile Ads SDK.
-            MobileAds.Initialize(initStatus => 
+            MobileAds.Initialize(initStatus =>
             {
-            
-            
             });
 
-            this.RequestBanner();
+            this.RequestBannerAndroid();
 
+
+#elif UNITY_IPHONE
+            Debug.Log("Initializing ads for ios");
+            Advertisement.Initialize(unityIosGameId, true, this);   
+#endif
             SceneManager.sceneLoaded += OnSceneChanged;
-
             Object.DontDestroyOnLoad(gameObject);
         }
 
@@ -29,16 +36,9 @@ namespace Assets.Code.Game
             DisplayNewAd();
         }
 
-        private void RequestBanner()
+        private void RequestBannerAndroid()
         {
-#if UNITY_ANDROID
             string adUnitId = "ca-app-pub-2657917745077989/5695597112";
-#elif UNITY_IPHONE
-                string adUnitId = "ca-app-pub-2657917745077989/8206457804";
-#else
-                string adUnitId = null;
-#endif
-
 
             if (string.IsNullOrEmpty(adUnitId) == false)
             {
@@ -50,13 +50,15 @@ namespace Assets.Code.Game
 
         private void OnDestroy()
         {
-            if(this.bannerView != null)
+            if (this.bannerView != null)
                 bannerView.Destroy();
         }
 
         private void DisplayNewAd()
         {
-            if(this.bannerView != null)
+#if UNITY_ANDROID
+
+            if (this.bannerView != null)
             {
                 // Create an empty ad request.
                 AdRequest request = new AdRequest.Builder().Build();
@@ -64,7 +66,26 @@ namespace Assets.Code.Game
                 // Load the banner with the request.
                 this.bannerView.LoadAd(request);
             }
+#elif UNITY_IPHONE
+            Advertisement.Banner.Load(unityIosPlacementId, new BannerLoadOptions()
+            {
+                loadCallback = () =>
+                {
+                    Advertisement.Banner.Show(unityIosPlacementId);
+                }
+            });
+#endif
+
+
+        }
+        public void OnInitializationComplete()
+        {
+            Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+            DisplayNewAd();   
         }
 
+        public void OnInitializationFailed(UnityAdsInitializationError error, string message)
+        {
+        }
     }
 }
